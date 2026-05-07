@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VELA — Creative Studio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --black: #0c0c0b;
+            --white: #f5f4ef;
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family: 'Syne', sans-serif;
+            background: var(--white);
+            color: var(--black);
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* Unicorn Studio Container */
+        #unicorn-container {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* Cursor */
+        .cursor-dot, .cursor-ring {
+            position: fixed; border-radius: 50%; pointer-events: none; z-index: 9999;
+        }
+        .cursor-dot { width: 8px; height: 8px; background: var(--black); transform: translate(-50%, -50%); }
+        .cursor-ring { 
+            width: 40px; height: 40px; 
+            border: 1.5px solid var(--black); 
+            transform: translate(-50%, -50%); 
+            transition: all 0.4s cubic-bezier(0.23,1,0.32,1);
+        }
+        .cursor-ring.hover { width: 90px; height: 90px; border-color: #000; }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+            padding: 0 5%;
+            color: white;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            margin-bottom: 12%;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cursor -->
+    <div class="cursor-dot" id="dot"></div>
+    <div class="cursor-ring" id="ring"></div>
+
+    <!-- Hero Section with Unicorn Studio -->
+    <section class="hero" id="hero">
+        <!-- Unicorn Studio Embed -->
+        <div id="unicorn-container">
+            <div style="width: 100%; height: 100%; max-width: 1440px; margin: 0 auto;" data-us-project="dfYUKbcHD7WRQmnJnHWs"></div>
+        </div>
+
+        <div class="hero-content">
+            <h1 class="reveal" style="font-family:'Fraunces',serif; font-size: clamp(4.8rem, 11vw, 10rem); line-height: 0.92; font-weight: 900;">
+                Designing<br>Timeless<br>Identities.
+            </h1>
+            <p class="reveal reveal-delay-1" style="font-size:1.2rem; max-width:520px; margin:24px 0 50px;">
+                Making brands that last — through identity, packaging, and experiences that speak.
+            </p>
+            <a href="#work" class="btn btn-dark magnetic" style="padding:18px 42px; display:inline-block;">Explore Our Work</a>
+        </div>
+    </section>
+
+    <!-- Floating Button -->
+    <div class="floating-btn magnetic" onclick="showPopup()" style="position:fixed; bottom:40px; right:40px; z-index:1000; background:#000; color:white; padding:16px 32px; border-radius:50px; font-size:0.8rem; font-weight:600; letter-spacing:1.5px; cursor:pointer;">
+        AVAILABLE FOR PROJECTS →
+    </div>
+
+    <!-- Rest of the website (Projects, Contact, etc.) -->
+    <section id="work" style="padding:120px 5%; background:var(--white);">
+        <h2 style="text-align:center; font-family:'Fraunces',serif; font-size:3.8rem; margin-bottom:70px;">Selected Projects</h2>
+        <!-- Your project slider code here -->
+    </section>
+
+    <!-- Contact Section -->
+    <section style="padding:140px 5%; background:#0c0c0b; color:white;">
+        <h2 style="text-align:center; font-family:'Fraunces',serif; font-size:3.6rem; margin-bottom:80px;">Start Your Project</h2>
+        <!-- Your form here -->
+    </section>
+
+    <!-- Unicorn Studio Script -->
+    <script type="text/javascript">
+        !function(){var u=window.UnicornStudio;if(u&&u.init){if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",function(){u.init()})}else{u.init()}}else{window.UnicornStudio={isInitialized:!1};var i=document.createElement("script");i.src="https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v2.1.12/dist/unicornStudio.umd.js",i.onload=function(){if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",function(){UnicornStudio.init()})}else{UnicornStudio.init()}},(document.head||document.body).appendChild(i)}}();
+    </script>
+
+    <script>
+        // Cursor + Magnetic + Other scripts (same as previous version)
+        const dot = document.getElementById('dot');
+        const ring = document.getElementById('ring');
+        
+        document.addEventListener('mousemove', e => {
+            dot.style.left = e.clientX + 'px';
+            dot.style.top = e.clientY + 'px';
+            ring.style.left = e.clientX + 'px';
+            ring.style.top = e.clientY + 'px';
+        });
+
+        document.querySelectorAll('.magnetic, .slide').forEach(el => {
+            el.addEventListener('mouseenter', () => ring.classList.add('hover'));
+            el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
+        });
+
+        // Magnetic Hover Function
+        function magneticHover(el) {
+            el.addEventListener('mousemove', (e) => {
+                const rect = el.getBoundingClientRect();
+                const x = (e.clientX - rect.left - rect.width/2) * 0.25;
+                const y = (e.clientY - rect.top - rect.height/2) * 0.25;
+                el.style.transform = `translate(${x}px, ${y}px)`;
+            });
+            el.addEventListener('mouseleave', () => el.style.transform = 'translate(0,0)');
+        }
+
+        window.onload = () => {
+            document.querySelectorAll('.magnetic').forEach(magneticHover);
+        };
+    </script>
+</body>
+</html>
